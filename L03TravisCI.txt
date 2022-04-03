@@ -1,0 +1,63 @@
+https://app.travis-ci.com/account/repositories
+https://github.com/RonnieKemper/hackathon-starter
+signed in with github
+Travis continuous integration is continuous integration software
+install it into github and hook it up to your github repositories
+they will sync
+
+npm config set python "C:\Users\ronsp\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.9"
+Before you can dive straight into using Travis CI, you need to add a file to the hackathon-starter folder on your desktop.
+
+Create a new file in the hackathon-starter directory (adjacent to the deploy.js file) called deploy.sh. To automatically deploy with Travis CI, you will need to add a Shell script. This is simply a file that contains commands for the computer to run via the terminal (think ls and cd). This is what your deploy.sh will contain. This shell script installs two dependencies needed by the deploy script and then runs the deploy script.
+
+Copy the below into the file deploy.sh:
+
+copy /b nul deploy.sh
+echo "Installing 'node-cmd'"
+npm install node-cmd
+echo "Installing 'node-ssh'"
+npm install node-ssh
+echo "Running 'deploy.js'"
+node deploy.js
+
+copy /b nul .travis.yml
+# .travis.yml file
+language: node_js
+node_js:
+  - "10"
+  - "12"
+  - "14"
+services: mongodb  
+cache:  
+  directories:
+    - "node_modules"
+install:
+  - npm install
+script:
+  - npm run lint
+  - npm test
+
+git add . --all
+git commit -m "adding .travis.yml and deploy.sh files"
+git push origin master
+
+language: node_js
+node_js:
+  - "10"
+  - "12"
+  - "14"
+services: mongodb  
+cache:  
+  directories:
+    - "node_modules"
+install:
+  - npm install
+script:
+  - npm run lint
+  - npm test
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: chmod +x ./deploy.sh && ./deploy.sh
+    on:
+      branch: master

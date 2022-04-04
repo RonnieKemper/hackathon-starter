@@ -1,0 +1,2 @@
+DEBIAN_FRONTEND=noninteractive
+TRAVIS_ALLOW_FAILURE=true

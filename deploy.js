@@ -87,7 +87,7 @@ function sshConnect() {
       // TODO: ADD YOUR IP ADDRESS BELOW (e.g. '12.34.5.67')
       host: 'ec2-3-80-54-171.compute-1.amazonaws.com',
       username: 'ubuntu',
-      privateKey: 'C:\Users\ronsp\OneDrive\Desktop\ID\DEV\SSH_Keys\labsuser.pem'
+      privateKey: './labsuser.pem'
     })
     .then(function() {
       console.log('SSH Connection established.');
